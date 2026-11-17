@@ -1,0 +1,16 @@
+# Netlify config for www.garyseid.com
+# The site is pre-built: /site is published as-is, no build command.
+# Serverless functions (the /s/ short-link service) deploy from /netlify/functions.
+
+[build]
+  publish = "site"
+  command = ""
+
+[functions]
+  directory = "netlify/functions"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

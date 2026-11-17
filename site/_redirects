@@ -1,0 +1,9 @@
+/s/* /.netlify/functions/links 200
+/api/links /.netlify/functions/links 200
+/go/book https://bookings.cloud.microsoft/bookwithme/user/70c0e465b2d24efdb39ea8a00f0b844b@blustl.com/meetingtype/LzqghpTURUmyhBXWgDE6LA2?anonymous&ismsaljsauthenabled&ep=mcard 302
+/go/review https://g.page/r/Cdhu7P9vpvC1EBM/review 302
+/go/search https://garyseid.kw.com/search 302
+https://blustl.com/* https://www.garyseid.com/:splat 301!
+https://www.blustl.com/* https://www.garyseid.com/:splat 301!
+http://blustl.com/* https://www.garyseid.com/:splat 301!
+http://www.blustl.com/* https://www.garyseid.com/:splat 301!

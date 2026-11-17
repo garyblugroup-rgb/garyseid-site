@@ -1,0 +1,5 @@
+src/fnbuild/node_modules/
+src/fnbuild/package*.json
+src/netlify/
+src/gary-seid-site.html
+src/preview.html
