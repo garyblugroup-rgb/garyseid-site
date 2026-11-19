@@ -31,6 +31,7 @@ open(OUT + '/styles.css', 'w').write(css.strip() + '\n')
 agent_ld = t[t.index('<script type="application/ld+json">'):t.index('</script>') + 9]
 header = t[t.index('<header class="site">'):t.index('</header>') + 9]
 footer = t[t.index('<footer class="site">'):t.index('</footer>') + 9]
+footer = footer.replace('<li><a href="#contact" data-view="contact">Contact</a></li>', '<li><a href="#contact" data-view="contact">Contact</a></li><li><a href="/privacy/">Privacy Policy</a></li>')
 def block(start_marker, end_marker):
     s = t.index(start_marker); e = t.index(end_marker, s)
     return t[s:e]
@@ -48,7 +49,7 @@ def section(name):
     sec = re.sub(r'<section class="view" id="view-[a-z]+" data-name="[a-z]+"( hidden)?>', '<section>', sec)
     return sec
 
-ROUTES = {'home': '/', 'about': '/about/', 'guide': '/buyer-guide/', 'sellers': '/seller-guide/', 'contact': '/contact/', 'homevalue': '/home-value/', 'storypaige': '/stories/paige/', 'storyangelina': '/stories/angelina/', 'storyshuai': '/stories/shuai/', 'intake': '/intake/', 'careernight': '/career-night/', 'examprep': '/exam-prep/', 'twentyquestions': '/twenty-questions/', 'mortgagecalc': '/mortgage-calculator/', 'netsheet': '/seller-net-sheet/', 'applyloan': '/apply-for-a-loan/', 'prephome': '/preparing-your-home-for-sale/', 'marketing': '/marketing-strategy/', 'storiesindex': '/stories/'}
+ROUTES = {'home': '/', 'about': '/about/', 'guide': '/buyer-guide/', 'sellers': '/seller-guide/', 'contact': '/contact/', 'homevalue': '/home-value/', 'storypaige': '/stories/paige/', 'storyangelina': '/stories/angelina/', 'storyshuai': '/stories/shuai/', 'intake': '/intake/', 'careernight': '/career-night/', 'examprep': '/exam-prep/', 'twentyquestions': '/twenty-questions/', 'mortgagecalc': '/mortgage-calculator/', 'netsheet': '/seller-net-sheet/', 'applyloan': '/apply-for-a-loan/', 'prephome': '/preparing-your-home-for-sale/', 'marketing': '/marketing-strategy/', 'storiesindex': '/stories/', 'privacy': '/privacy/'}
 def fix_links(s):
     s = re.sub(r'href="#[a-z]+" data-view="([a-z]+)" data-anchor="([a-z-]+)"',
                lambda m: f'href="{ROUTES[m.group(1)]}#{m.group(2)}"', s)
@@ -108,6 +109,7 @@ form = '''<form class="lead" name="contact" method="POST" action="/thanks/" data
         </div>
         <label for="f-msg">Message<textarea id="f-msg" name="message" rows="4" placeholder="Tell me a little about your plans and timeline."></textarea></label>
         <button class="btn primary" type="submit" style="justify-self:start">Send message</button>
+        <p class="note" style="margin:0;font-size:.85rem">By submitting, you agree that Gary Seid may contact you by phone, text, or email about your inquiry. Message and data rates may apply; reply STOP to opt out of texts. See the <a href="/privacy/">privacy policy</a>.</p>
       </form>'''
 contact = contact[:fs] + form + contact[fe:]
 contact = contact.replace("Let's talk about your first home.", "Let's talk about your next move.")
@@ -129,6 +131,7 @@ hv_form = """<form class="lead" name="home-value" method="POST" action="/thanks/
         <label for="hv-when">When are you thinking of selling?<select id="hv-when" name="timeframe"><option>In the next 3 months</option><option>3\u20136 months</option><option>6\u201312 months</option><option>Just curious what it's worth</option></select></label>
         <label for="hv-msg">Anything I should know?<textarea id="hv-msg" name="message" rows="3" placeholder="Updates you've made, condition, anything unusual."></textarea></label>
         <button class="btn primary" type="submit" style="justify-self:start">Request my free analysis</button>
+        <p class="note" style="margin:0;font-size:.85rem">By submitting, you agree that Gary Seid may contact you by phone, text, or email about your inquiry. Message and data rates may apply; reply STOP to opt out of texts. See the <a href="/privacy/">privacy policy</a>.</p>
       </form>"""
 homevalue = re.sub(r'<form class="lead" id="hv-form".*?</form>', lambda m: hv_form, homevalue, count=1, flags=re.S)
 assert 'data-netlify' in homevalue
@@ -155,6 +158,7 @@ intake_form = """<form class="lead" name="intake" method="POST" action="/thanks/
           <label for="in-email">Email address<input id="in-email" name="email" type="email" autocomplete="email" required></label>
         </div>
         <button class="btn primary" type="submit" style="justify-self:start">Send to Gary</button>
+        <p class="note" style="margin:0;font-size:.85rem">By submitting, you agree that Gary Seid may contact you by phone, text, or email about your inquiry. Message and data rates may apply; reply STOP to opt out of texts. See the <a href="/privacy/">privacy policy</a>.</p>
       </form>"""
 intake = re.sub(r'<form class="lead" id="intake-form".*?</form>', lambda m: intake_form, intake, count=1, flags=re.S)
 assert 'data-netlify' in intake
@@ -163,6 +167,7 @@ careernight = careernight.replace(
     '<form class="lead" id="career-form" novalidate>',
     '<form class="lead" name="career-night" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="company">\n        <input type="hidden" name="form-name" value="career-night">\n        <p hidden><label>Leave this empty <input name="company"></label></p>')
 careernight = re.sub(r'\s*<p class="notice form-note" hidden>.*?</p>', '', careernight, count=1, flags=re.S)
+careernight = careernight.replace('>Send it in</button>', '>Send it in</button>\n        <p class="note" style="margin:0;font-size:.85rem">By submitting, you agree that Gary Seid may contact you by phone, text, or email about your inquiry. Message and data rates may apply; reply STOP to opt out of texts. See the <a href="/privacy/">privacy policy</a>.</p>')
 assert 'data-netlify' in careernight and 'form-note' not in careernight
 
 
@@ -235,6 +240,30 @@ linksadmin = """<section><div class="band"><div class="wrap stack" style="gap:20
 })();
 </script>"""
 
+privacy = """<section><div class="band"><div class="wrap stack prose" style="gap:22px;max-width:760px">
+  <div class="stack" style="gap:10px">
+    <span class="eyebrow">Privacy Policy</span>
+    <h1 style="font-size:clamp(2rem,4.6vw,3.3rem)">Privacy policy</h1>
+    <p class="note">Last updated: November 19, 2026 &middot; Gary Seid, REALTOR&reg; &middot; The Blu Group Real Estate, powered by Keller Williams Marquee</p>
+  </div>
+  <div class="stack" style="gap:8px"><h2 style="font-size:1.3rem">Information I collect</h2>
+    <p>When you fill out a form on this site, I collect the information you provide: your name, phone number, email address, and any property details or messages you include. The site also uses standard analytics and tracking tools (including a Follow Up Boss website tracker) that record pages visited and basic technical information such as browser type, in order to understand how visitors use the site and to serve you better when you reach out.</p>
+  </div>
+  <div class="stack" style="gap:8px"><h2 style="font-size:1.3rem">How I use it</h2>
+    <p>Your information is used to respond to your inquiry, provide real estate services you request, and follow up about your home search or sale. It is stored in the customer relationship tools I use to run my business.</p>
+    <p><b>Data will not be shared with third parties for marketing or promotional purposes.</b> I do not sell your personal information. Information is shared only with service providers that help me operate my business (such as my CRM and website host), or as required to complete a transaction you are part of, or as required by law.</p>
+  </div>
+  <div class="stack" style="gap:8px"><h2 style="font-size:1.3rem">Calls and text messages</h2>
+    <p>By submitting a form with your phone number, you consent to receive calls and text messages from Gary Seid about your inquiry. Message frequency varies and message and data rates may apply. You can opt out of text messages at any time by replying STOP, or reply HELP for help. Consent to receive texts is not a condition of purchasing any property or service.</p>
+  </div>
+  <div class="stack" style="gap:8px"><h2 style="font-size:1.3rem">Your choices</h2>
+    <p>You may ask me at any time to update or delete the information you have submitted, or to stop contacting you. Call or text 314-494-6038 or email <a href="mailto:gary@blustl.com">gary@blustl.com</a>.</p>
+  </div>
+  <div class="stack" style="gap:8px"><h2 style="font-size:1.3rem">Questions</h2>
+    <p>Gary Seid &middot; The Blu Group Real Estate, powered by Keller Williams Marquee &middot; 1254 University Dr, Ste 200, Edwardsville, IL 62025 &middot; 314-494-6038 &middot; gary@blustl.com</p>
+  </div>
+</div></div></section>"""
+
 thanks = '''<section><div class="band"><div class="wrap stack prose">
   <span class="eyebrow">Message sent</span>
   <h1 style="font-size:clamp(2rem,4.6vw,3.3rem)">Thanks! I'll be in touch soon.</h1>
@@ -289,6 +318,8 @@ PAGES = [
  ('contact', '/contact/', 'Contact Gary Seid | REALTOR® | 314-494-6038',
   'Book a free consultation with Gary Seid, REALTOR®. Call or text 314-494-6038 or send a message. Office in Edwardsville, IL, serving St. Louis and the Metro East.', contact, cta_move, False),
  ('linksadmin', '/links/', 'Short Links | Gary Seid', 'Short link maker.', linksadmin, '', False),
+ ('privacy', '/privacy/', 'Privacy Policy | Gary Seid',
+  'Privacy policy for garyseid.com: what information is collected, how it is used, and your choices.', privacy, '', False),
  ('thanks', '/thanks/', 'Thank You | Gary Seid', 'Thanks for contacting Gary Seid.', thanks, '', False),
  ('404', '/404.html', 'Page Not Found | Gary Seid', 'Page not found.', notfound, cta_move, False),
 ]
