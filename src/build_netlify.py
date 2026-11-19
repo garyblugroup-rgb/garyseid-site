@@ -256,6 +256,17 @@ privacy = """<section><div class="band"><div class="wrap stack prose" style="gap
   <div class="stack" style="gap:8px"><h2 style="font-size:1.3rem">Calls and text messages</h2>
     <p>By submitting a form with your phone number, you consent to receive calls and text messages from Gary Seid (Blu Group LLC) about your inquiry. Message frequency varies and message and data rates may apply. You can opt out of text messages at any time by replying STOP, or reply HELP for help. Consent to receive texts is not a condition of purchasing any property or service.</p>
   </div>
+  <div class="stack" style="gap:8px"><h2 style="font-size:1.3rem">SMS Terms and Conditions</h2>
+    <ol style="margin:0;padding-left:20px;display:grid;gap:10px">
+      <li>We use SMS to confirm appointments, send reminders, and notify clients of schedule updates or important changes.</li>
+      <li>You can cancel the SMS service at any time. Just text "STOP". After you send the SMS message "STOP" to us, we will send you an SMS message to confirm that you have been unsubscribed. After this, you will no longer receive SMS messages from us. If you want to join again, just sign up as you did the first time, and we will start sending SMS messages to you again.</li>
+      <li>If you are experiencing issues with the messaging program, you can reply with the keyword "HELP" for more assistance, or you can get help directly at <a href="mailto:gary@blustl.com">gary@blustl.com</a>.</li>
+      <li>Carriers are not liable for delayed or undelivered messages.</li>
+      <li>As always, message and data rates may apply for any messages sent to you from us and to us from you. Message frequency may vary. If you have any questions about your text plan or data plan, it is best to contact your wireless provider.</li>
+      <li>If you have any questions regarding privacy, please read our privacy policy: <a href="https://garyseid.com/privacy/">https://garyseid.com/privacy/</a></li>
+    </ol>
+    <p>Phone numbers and mobile opt-in information collected for text messaging are not shared with third parties or affiliates for marketing or promotional purposes.</p>
+  </div>
   <div class="stack" style="gap:8px"><h2 style="font-size:1.3rem">Your choices</h2>
     <p>You may ask me at any time to update or delete the information you have submitted, or to stop contacting you. Call or text 314-494-6038 or email <a href="mailto:gary@blustl.com">gary@blustl.com</a>.</p>
   </div>
