@@ -31,7 +31,7 @@ open(OUT + '/styles.css', 'w').write(css.strip() + '\n')
 agent_ld = t[t.index('<script type="application/ld+json">'):t.index('</script>') + 9]
 header = t[t.index('<header class="site">'):t.index('</header>') + 9]
 footer = t[t.index('<footer class="site">'):t.index('</footer>') + 9]
-footer = footer.replace('<li><a href="#contact" data-view="contact">Contact</a></li>', '<li><a href="#contact" data-view="contact">Contact</a></li><li><a href="/privacy/">Privacy Policy</a></li>')
+footer = footer.replace('<li><a href="#contact" data-view="contact">Contact</a></li>', '<li><a href="#contact" data-view="contact">Contact</a></li><li><a href="/privacy/">Privacy Policy</a></li><li><a href="/terms/">Terms</a></li>')
 def block(start_marker, end_marker):
     s = t.index(start_marker); e = t.index(end_marker, s)
     return t[s:e]
@@ -49,7 +49,7 @@ def section(name):
     sec = re.sub(r'<section class="view" id="view-[a-z]+" data-name="[a-z]+"( hidden)?>', '<section>', sec)
     return sec
 
-ROUTES = {'home': '/', 'about': '/about/', 'guide': '/buyer-guide/', 'sellers': '/seller-guide/', 'contact': '/contact/', 'homevalue': '/home-value/', 'storypaige': '/stories/paige/', 'storyangelina': '/stories/angelina/', 'storyshuai': '/stories/shuai/', 'intake': '/intake/', 'careernight': '/career-night/', 'examprep': '/exam-prep/', 'twentyquestions': '/twenty-questions/', 'mortgagecalc': '/mortgage-calculator/', 'netsheet': '/seller-net-sheet/', 'applyloan': '/apply-for-a-loan/', 'prephome': '/preparing-your-home-for-sale/', 'marketing': '/marketing-strategy/', 'storiesindex': '/stories/', 'privacy': '/privacy/'}
+ROUTES = {'home': '/', 'about': '/about/', 'guide': '/buyer-guide/', 'sellers': '/seller-guide/', 'contact': '/contact/', 'homevalue': '/home-value/', 'storypaige': '/stories/paige/', 'storyangelina': '/stories/angelina/', 'storyshuai': '/stories/shuai/', 'intake': '/intake/', 'careernight': '/career-night/', 'examprep': '/exam-prep/', 'twentyquestions': '/twenty-questions/', 'mortgagecalc': '/mortgage-calculator/', 'netsheet': '/seller-net-sheet/', 'applyloan': '/apply-for-a-loan/', 'prephome': '/preparing-your-home-for-sale/', 'marketing': '/marketing-strategy/', 'storiesindex': '/stories/', 'privacy': '/privacy/', 'terms': '/terms/'}
 def fix_links(s):
     s = re.sub(r'href="#[a-z]+" data-view="([a-z]+)" data-anchor="([a-z-]+)"',
                lambda m: f'href="{ROUTES[m.group(1)]}#{m.group(2)}"', s)
@@ -264,6 +264,35 @@ privacy = """<section><div class="band"><div class="wrap stack prose" style="gap
   </div>
 </div></div></section>"""
 
+terms = """<section><div class="band"><div class="wrap stack prose" style="gap:22px;max-width:760px">
+  <div class="stack" style="gap:10px">
+    <span class="eyebrow">Terms &amp; Conditions</span>
+    <h1 style="font-size:clamp(2rem,4.6vw,3.3rem)">Terms and conditions</h1>
+    <p class="note">Last updated: November 19, 2026 &middot; Gary Seid, REALTOR&reg; &middot; The Blu Group Real Estate, powered by Keller Williams Marquee</p>
+  </div>
+  <div class="stack" style="gap:8px"><h2 style="font-size:1.3rem">Text messaging terms</h2>
+    <p>When you provide your phone number through a form on this site or otherwise opt in, you agree to receive informational text messages from Gary Seid about your real estate inquiry, such as responses to your questions, appointment and showing updates, and follow-up about your home search or sale.</p>
+    <ul>
+      <li>Message frequency varies based on your inquiry and transaction.</li>
+      <li>Message and data rates may apply, depending on your mobile carrier and plan.</li>
+      <li>Reply <b>STOP</b> at any time to cancel and stop receiving messages.</li>
+      <li>Reply <b>HELP</b> for help, or contact me directly at 314-494-6038 or <a href="mailto:gary@blustl.com">gary@blustl.com</a>.</li>
+      <li>Consent to receive text messages is not a condition of purchasing any property or service.</li>
+      <li>Mobile carriers are not liable for delayed or undelivered messages.</li>
+    </ul>
+    <p>How your information is handled is described in the <a href="/privacy/">privacy policy</a>. Your mobile information will not be shared with third parties for marketing or promotional purposes.</p>
+  </div>
+  <div class="stack" style="gap:8px"><h2 style="font-size:1.3rem">Use of this website</h2>
+    <p>The content on garyseid.com is provided for general informational purposes about buying and selling real estate in the St. Louis, Missouri and Metro East, Illinois area. It is not legal, tax, or financial advice. While I work to keep information current and accurate, programs, rates, taxes, and local requirements change, and information is deemed reliable but not guaranteed. Calculators on this site produce estimates only, not quotes or commitments.</p>
+  </div>
+  <div class="stack" style="gap:8px"><h2 style="font-size:1.3rem">Brokerage</h2>
+    <p>Gary Seid is a REALTOR&reg; and broker associate with The Blu Group Real Estate, powered by Keller Williams Marquee, 1254 University Dr, Ste 200, Edwardsville, IL 62025. Licensed in Illinois (471.022801) and Missouri (2018043269). Each Keller Williams office is independently owned and operated. Equal Housing Opportunity.</p>
+  </div>
+  <div class="stack" style="gap:8px"><h2 style="font-size:1.3rem">Questions</h2>
+    <p>Call or text 314-494-6038 or email <a href="mailto:gary@blustl.com">gary@blustl.com</a>.</p>
+  </div>
+</div></div></section>"""
+
 thanks = '''<section><div class="band"><div class="wrap stack prose">
   <span class="eyebrow">Message sent</span>
   <h1 style="font-size:clamp(2rem,4.6vw,3.3rem)">Thanks! I'll be in touch soon.</h1>
@@ -320,6 +349,8 @@ PAGES = [
  ('linksadmin', '/links/', 'Short Links | Gary Seid', 'Short link maker.', linksadmin, '', False),
  ('privacy', '/privacy/', 'Privacy Policy | Gary Seid',
   'Privacy policy for garyseid.com: what information is collected, how it is used, and your choices.', privacy, '', False),
+ ('terms', '/terms/', 'Terms and Conditions | Gary Seid',
+  'Terms and conditions for garyseid.com, including text messaging terms: message frequency, rates, and how to opt out.', terms, '', False),
  ('thanks', '/thanks/', 'Thank You | Gary Seid', 'Thanks for contacting Gary Seid.', thanks, '', False),
  ('404', '/404.html', 'Page Not Found | Gary Seid', 'Page not found.', notfound, cta_move, False),
 ]
