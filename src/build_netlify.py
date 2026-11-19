@@ -356,6 +356,18 @@ def nav_for(key):
             h.replace('<a href="/">Home</a>', '<a href="/" aria-current="page">Home</a>')
     return h
 
+FUB_PIXEL = """<!-- begin Widget Tracker Code -->
+<script>
+(function(w,i,d,g,e,t){w["WidgetTrackerObject"]=g;(w[g]=w[g]||function()
+{(w[g].q=w[g].q||[]).push(arguments);}),(w[g].ds=1*new Date());(e="script"),
+(t=d.createElement(e)),(e=d.getElementsByTagName(e)[0]);t.async=1;t.src=i;
+e.parentNode.insertBefore(t,e);})
+(window,"https://widgetbe.com/agent",document,"widgetTracker");
+window.widgetTracker("create", "WT-YYYBBGFE");
+window.widgetTracker("send", "pageview");
+</script>
+<!-- end Widget Tracker Code -->"""
+
 for key, path, title, desc, body, cta, faq in PAGES:
     url = BASE + (path if path != '/404.html' else '/')
     head = f'''<!doctype html>
@@ -380,6 +392,7 @@ for key, path, title, desc, body, cta, faq in PAGES:
 {agent_ld}
 {faq_ld(body) if faq else ''}
 {'<meta name="robots" content="noindex">' if key in ('thanks','404','intake','careernight','examprep','twentyquestions','linksadmin') else ''}
+{FUB_PIXEL}
 </head>
 <body>'''
     page = head + '\n' + nav_for(key) + '\n<main>\n' + fix_links(body) + '\n</main>\n' + fix_links(cta) + '\n' + follow_for(key) + fix_links(footer) + '\n' + SCRIPT + '\n</body>\n</html>\n'

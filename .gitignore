@@ -3,3 +3,4 @@ src/fnbuild/package*.json
 src/netlify/
 src/gary-seid-site.html
 src/preview.html
+src/fnbuild/links.mjs
