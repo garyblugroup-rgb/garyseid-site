@@ -109,7 +109,7 @@ form = '''<form class="lead" name="contact" method="POST" action="/thanks/" data
         </div>
         <label for="f-msg">Message<textarea id="f-msg" name="message" rows="4" placeholder="Tell me a little about your plans and timeline."></textarea></label>
         <button class="btn primary" type="submit" style="justify-self:start">Send message</button>
-        <p class="note" style="margin:0;font-size:.85rem">I agree to be contacted by Blu Group LLC via call, email, and text for real estate services. To opt out, you can reply &#39;stop&#39; at any time or reply &#39;help&#39; for assistance. Message and data rates may apply. Message frequency may vary. See the <a href="/privacy/">privacy policy</a>.</p>
+        <p class="note" style="margin:0;font-size:.85rem">I agree to be contacted by Blu Group LLC and Gary Seid via call, email, and text for real estate services. To opt out, you can reply &#39;stop&#39; at any time or reply &#39;help&#39; for assistance. Message and data rates may apply. Message frequency may vary. See the <a href="/privacy/">privacy policy</a>.</p>
       </form>'''
 contact = contact[:fs] + form + contact[fe:]
 contact = contact.replace("Let's talk about your first home.", "Let's talk about your next move.")
@@ -131,7 +131,7 @@ hv_form = """<form class="lead" name="home-value" method="POST" action="/thanks/
         <label for="hv-when">When are you thinking of selling?<select id="hv-when" name="timeframe"><option>In the next 3 months</option><option>3\u20136 months</option><option>6\u201312 months</option><option>Just curious what it's worth</option></select></label>
         <label for="hv-msg">Anything I should know?<textarea id="hv-msg" name="message" rows="3" placeholder="Updates you've made, condition, anything unusual."></textarea></label>
         <button class="btn primary" type="submit" style="justify-self:start">Request my free analysis</button>
-        <p class="note" style="margin:0;font-size:.85rem">I agree to be contacted by Blu Group LLC via call, email, and text for real estate services. To opt out, you can reply &#39;stop&#39; at any time or reply &#39;help&#39; for assistance. Message and data rates may apply. Message frequency may vary. See the <a href="/privacy/">privacy policy</a>.</p>
+        <p class="note" style="margin:0;font-size:.85rem">I agree to be contacted by Blu Group LLC and Gary Seid via call, email, and text for real estate services. To opt out, you can reply &#39;stop&#39; at any time or reply &#39;help&#39; for assistance. Message and data rates may apply. Message frequency may vary. See the <a href="/privacy/">privacy policy</a>.</p>
       </form>"""
 homevalue = re.sub(r'<form class="lead" id="hv-form".*?</form>', lambda m: hv_form, homevalue, count=1, flags=re.S)
 assert 'data-netlify' in homevalue
@@ -157,7 +157,7 @@ intake_form = """<form class="lead" name="intake" method="POST" action="/thanks/
           <label for="in-zip">ZIP<input id="in-zip" name="zip" autocomplete="postal-code" inputmode="numeric" required></label>
           <label for="in-email">Email address<input id="in-email" name="email" type="email" autocomplete="email" required></label>
         </div>
-        <label class="choice" style="font-size:.85rem;font-weight:400"><input type="checkbox" name="sms_consent" value="yes"><span>I agree to be contacted by Blu Group LLC via call, email, and text for real estate services. To opt out, you can reply &#39;stop&#39; at any time or reply &#39;help&#39; for assistance. Message and data rates may apply. Message frequency may vary. See the <a href="/privacy/">privacy policy</a>.</span></label>
+        <label class="choice" style="font-size:.85rem;font-weight:400"><input type="checkbox" name="sms_consent" value="yes"><span>I agree to be contacted by Blu Group LLC and Gary Seid via call, email, and text for real estate services. To opt out, you can reply &#39;stop&#39; at any time or reply &#39;help&#39; for assistance. Message and data rates may apply. Message frequency may vary. See the <a href="/privacy/">privacy policy</a>.</span></label>
         <button class="btn primary" type="submit" style="justify-self:start">Send to Gary</button>
       </form>"""
 intake = re.sub(r'<form class="lead" id="intake-form".*?</form>', lambda m: intake_form, intake, count=1, flags=re.S)
@@ -167,7 +167,7 @@ careernight = careernight.replace(
     '<form class="lead" id="career-form" novalidate>',
     '<form class="lead" name="career-night" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="company">\n        <input type="hidden" name="form-name" value="career-night">\n        <p hidden><label>Leave this empty <input name="company"></label></p>')
 careernight = re.sub(r'\s*<p class="notice form-note" hidden>.*?</p>', '', careernight, count=1, flags=re.S)
-careernight = careernight.replace('<button class="btn primary" type="submit" style="justify-self:start">Send it in</button>', '<label class="choice" style="font-size:.85rem;font-weight:400"><input type="checkbox" name="sms_consent" value="yes"><span>I agree to be contacted by Blu Group LLC via call, email, and text about career opportunities in real estate. To opt out, you can reply &#39;stop&#39; at any time or reply &#39;help&#39; for assistance. Message and data rates may apply. Message frequency may vary. See the <a href="/privacy/">privacy policy</a>.</span></label>\n        <button class="btn primary" type="submit" style="justify-self:start">Send it in</button>')
+careernight = careernight.replace('<button class="btn primary" type="submit" style="justify-self:start">Send it in</button>', '<label class="choice" style="font-size:.85rem;font-weight:400"><input type="checkbox" name="sms_consent" value="yes"><span>I agree to be contacted by Blu Group LLC and Gary Seid via call, email, and text about career opportunities in real estate. To opt out, you can reply &#39;stop&#39; at any time or reply &#39;help&#39; for assistance. Message and data rates may apply. Message frequency may vary. See the <a href="/privacy/">privacy policy</a>.</span></label>\n        <button class="btn primary" type="submit" style="justify-self:start">Send it in</button>')
 assert 'data-netlify' in careernight and 'form-note' not in careernight
 
 
